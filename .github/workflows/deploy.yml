@@ -1,1 +1,43 @@
-The full YAML configuration file for the GitHub Actions workflow can be found in the referenced documentation. For reference, it includes steps to check out the code, set up Node, install dependencies, build with the custom base flag -- --base=/phase-1/, and deploy to GitHub Pages.
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: npm install
+      - name: Configure vite
+        run: |
+          echo 'export default {
+            base: "/${{ github.event.repository.name }}/"
+          }' > vite.config.js
+      - name: Build project
+        run: npm run build
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: dist
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
+
