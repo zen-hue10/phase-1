@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm paper palette — cream sheet music, forest ink, brass & crimson accents */
+    --background: 44 46% 91%; /* #f2ecdc paper */
+    --foreground: 163 50% 11%; /* #0e2a22 ink */
+    --card: 41 62% 95%; /* #faf5ea */
+    --card-foreground: 163 50% 11%;
+    --popover: 41 62% 95%;
+    --popover-foreground: 163 50% 11%;
+    --primary: 163 50% 11%; /* ink buttons */
+    --primary-foreground: 44 46% 91%;
+    --secondary: 43 37% 87%; /* #eae3d1 paper-2 */
+    --secondary-foreground: 163 50% 11%;
+    --muted: 43 37% 87%;
+    --muted-foreground: 150 8% 39%;
+    --accent: 44 89% 59%; /* #f3c13a brass */
+    --accent-foreground: 163 50% 11%;
+    --destructive: 348 70% 53%; /* #db3356 crimson */
+    --destructive-foreground: 44 46% 91%;
+    --border: 42 24% 75%;
+    --input: 42 24% 75%;
+    --ring: 44 89% 59%;
+    --radius: 0.75rem;
+    --sidebar-background: 41 62% 95%;
+    --sidebar-foreground: 163 50% 11%;
+    --sidebar-primary: 163 50% 11%;
+    --sidebar-primary-foreground: 44 46% 91%;
+    --sidebar-accent: 43 37% 87%;
+    --sidebar-accent-foreground: 163 50% 11%;
+    --sidebar-border: 42 24% 75%;
+    --sidebar-ring: 44 89% 59%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+  ::selection {
+    background: #f3c13a;
+    color: #0e2a22;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Fraunces", Georgia, serif;
+  }
+  .font-sans {
+    font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  }
+  .font-mono {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  /* Five-line staff divider — the sheet-music motif */
+  .staff-lines {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 7px,
+      rgb(14 42 34 / 0.28) 7px,
+      rgb(14 42 34 / 0.28) 8px
+    );
+    height: 36px;
+  }
+  .staff-lines-light {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 7px,
+      rgb(242 236 220 / 0.25) 7px,
+      rgb(242 236 220 / 0.25) 8px
+    );
+    height: 36px;
+  }
+  .card-shadow {
+    box-shadow: 0 1px 0 rgb(14 42 34 / 0.9);
+  }
+  .card-lift {
+    transition: transform 0.18s ease-out, box-shadow 0.18s ease-out;
+  }
+  .card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -12px rgb(14 42 34 / 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-lift,
+  .card-lift:hover {
+    transition: none;
+    transform: none;
+  }
+}
